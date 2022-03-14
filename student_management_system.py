@@ -1,6 +1,6 @@
 import mysql.connector as mc
 
-con = mc.connect(host='localhost', user='root', passwd='root', database='student')
+con = mc.connect(host='localhost', user='root', passwd='', database='student')
 
 def Main_Menu():
     print('\n')
@@ -53,7 +53,7 @@ def updateStud():
     a7 = input('Enter email: ')
 
     data = (a1,a2,a3,a4,a5,a6,a7)
-    sql = 'update s1 set Name = %s, FName = %s, MName = %s, Address = %s, Phone = %s, Email = %s where Rno = %s'
+    sql = 'update s1 set SName = %s, FName = %s, MName = %s, Address = %s, Phone = %s, Email = %s where Rno = %s'
     c1 = con.cursor()
     c1.execute(sql,data)
     con.commit()
