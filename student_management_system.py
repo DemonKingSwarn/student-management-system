@@ -1,6 +1,6 @@
 import mysql.connector as mc
 
-con = mc.connect(host='localhost', user='root', passwd='', database='student')
+con = mc.connect(host='localhost', user='root', passwd='root', database='student')
 
 def Main_Menu():
     print('\n')
@@ -85,3 +85,63 @@ def addStudExam():
     c1.execute(sql,data)
     con.commit()
     print('\nData entered successfully...')
+
+def displayStudExam():
+    sql = 'select * from s2'
+    c1 = con.cursor()
+    c1.execute(sql)
+    b = c1.fetchall()
+    for i in b:
+        print(i)
+
+def updateStudExam():
+    print('\nEnter student details you want to update')
+    a1 = input('Enter Roll no.: ')
+    a2 = input('Enter name: ')
+    a3 = input('Enter class: ')
+    a4 = input('Enter section: ')
+    a5 = input('Enter total marks (Out of 500): ')
+    a6 = input('Enter percentage: ')
+    a7 = input('Enter grade: ')
+
+    data = (a1,a2,a3,a4,a5,a6,a7)
+    sql = "update s2 set SName = %s, Class = %s, Section = %s, TotalMarks = %s, Percentage = %s, Grade = %s where Rno = '%s'"
+    c1 = con.cursor()
+    c1.execute(sql,data)
+    con.commit()
+    print('\nData updated successfully...')
+
+def deleteStudExam():
+    print('\nEnter student roll no. you want to delete')
+    a1 = input('Enter Roll no.: ')
+
+    data = (a1)
+    sql = "delete from s2 where Rno = '%s'"
+    c1 = con.cursor()
+    c1.execute(sql,data)
+    con.commit()
+    print('\nData deleted successfully...')
+
+while True:
+    Main_Menu()
+    ch = input('Enter your choice: ')
+    if ch == '1':
+        addStud()
+    elif ch == '2':
+        displayStud()
+    elif ch =='3':
+        updateStud()
+    elif ch == '4':
+        deleteStud()
+    elif ch == '5':
+        addStudExam()
+    elif ch == '6':
+        displayStudExam()
+    elif ch == '7':
+        updateStudExam()
+    elif ch == '8':
+        deleteStudExam()
+    elif ch == '9':
+        break
+    else:
+        print('\n*** Enter a valid choice ***')
