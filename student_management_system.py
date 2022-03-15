@@ -1,6 +1,14 @@
 import mysql.connector as mc
 
-con = mc.connect(host='localhost', user='root', passwd='root', database='student')
+con = mc.connect(host='localhost', user='root', passwd='root')
+
+def createDatabase():
+    global con
+    cursor=con.cursor()
+    cursor.execute("CREATE DATABASE IF NOT EXISTS STUDENT")
+    cursor.execute("USE STUDENT")
+    cursor.execute("CREATE TABLE IF NOT EXISTS s1(Rno int, SName varchar(40), FName varchar(40), MName varchar(40), Address varchar(40), Phone int, Email varchar(40))")
+    cursor.execute("CREATE TABLE IF NOT EXISTS s2(Rno int, SName varchar(40), Class varchar(40), Section varchar(40), TotalMarks int, Percentage int, Grade varchar(40))")
 
 def Main_Menu():
     print('\n')
@@ -19,6 +27,7 @@ def Main_Menu():
     print(60*'*')
 
 def addStud():
+    global con
     a1 = input('Enter roll no.: ')
     a2 = input('Enter name: ')
     a3 = input('Enter father\'s name: ')
@@ -35,6 +44,7 @@ def addStud():
     print('\nData entered successfully...')
 
 def displayStud():
+    global con
     sql = 'select * from s1'
     c1 = con.cursor()
     c1.execute(sql)
@@ -43,6 +53,7 @@ def displayStud():
         print(i)
 
 def updateStud():
+    global con
     print('\nEnter student details you want to update...')
     a1 = input('Enter roll no.:' )
     a2 = input('Enter name: ')
@@ -60,6 +71,7 @@ def updateStud():
     print('\nData updated successfully...')
 
 def deleteStud():
+    global con
     print('\nEnter student roll no. you want to delete...')
     a1 = input('Enter Roll no.: ')
 
@@ -71,6 +83,7 @@ def deleteStud():
     print('\nData deleted successfully...')
 
 def addStudExam():
+    global con
     a1 = input('Enter Roll no.: ')
     a2 = input('Enter name: ')
     a3 = input('Enter class: ')
@@ -87,6 +100,7 @@ def addStudExam():
     print('\nData entered successfully...')
 
 def displayStudExam():
+    global con
     sql = 'select * from s2'
     c1 = con.cursor()
     c1.execute(sql)
@@ -95,6 +109,7 @@ def displayStudExam():
         print(i)
 
 def updateStudExam():
+    global con
     print('\nEnter student details you want to update')
     a1 = input('Enter Roll no.: ')
     a2 = input('Enter name: ')
@@ -112,6 +127,7 @@ def updateStudExam():
     print('\nData updated successfully...')
 
 def deleteStudExam():
+    global con
     print('\nEnter student roll no. you want to delete')
     a1 = input('Enter Roll no.: ')
 
@@ -121,6 +137,8 @@ def deleteStudExam():
     c1.execute(sql,data)
     con.commit()
     print('\nData deleted successfully...')
+
+createDatabase()
 
 while True:
     Main_Menu()
